@@ -1,0 +1,54 @@
+package com.fernandes.curso_pedidos_hexagonal.adapters.out.repository.entity;
+
+import com.fernandes.curso_pedidos_hexagonal.application.core.domain.DadosPagamento;
+import com.fernandes.curso_pedidos_hexagonal.application.core.domain.enums.StatusPedido;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Entity
+@Table(name = "pedido")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class PedidoEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long codigo;
+
+    @Column(name = "codigo_cliente", nullable = false)
+    private Long codigoCliente;
+
+    @Column(name = "data_pedido", nullable = false)
+    private LocalDateTime dataPedido;
+
+    @Column(name = "total", precision = 16, scale = 2)
+    private BigDecimal total;
+
+    @Column(name = "chave_pagamento")
+    private String chavePagamento;
+
+    @Column(name = "observacoes")
+    private String observacoes;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private StatusPedido status;
+
+    @Column(name = "codigo_rastreio")
+    private String codigoRastreio;
+
+    @Transient
+    private DadosPagamento dadosPagamento;
+
+    @OneToMany(mappedBy = "pedido")
+    private List<ItemPedidoEntity> itens;
+}
