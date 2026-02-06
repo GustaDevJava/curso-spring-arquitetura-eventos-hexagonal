@@ -19,6 +19,23 @@ public class ClienteEntityMapperImpl implements ClienteEntityMapper {
         clienteEntity.setBairro(cliente.getBairro());
         clienteEntity.setEmail(cliente.getEmail());
         clienteEntity.setTelefone(cliente.getTelefone());
+        clienteEntity.setAtivo(cliente.isAtivo());
+
+        return clienteEntity;
+    }
+
+    @Override
+    public ClienteEntity toClienteEntityUp(Cliente cliente) {
+        ClienteEntity clienteEntity = new ClienteEntity();
+        clienteEntity.setCodigo(cliente.getCodigo());
+        clienteEntity.setNome(cliente.getNome());
+        clienteEntity.setCpf(cliente.getCpf());
+        clienteEntity.setLogradouro(cliente.getLogradouro());
+        clienteEntity.setNumero(cliente.getNumero());
+        clienteEntity.setBairro(cliente.getBairro());
+        clienteEntity.setEmail(cliente.getEmail());
+        clienteEntity.setTelefone(cliente.getTelefone());
+        clienteEntity.setAtivo(cliente.isAtivo());
 
         return clienteEntity;
     }
@@ -34,6 +51,7 @@ public class ClienteEntityMapperImpl implements ClienteEntityMapper {
         cliente.setBairro(clienteEntity.getBairro());
         cliente.setEmail(clienteEntity.getEmail());
         cliente.setTelefone(clienteEntity.getTelefone());
+        cliente.setAtivo(clienteEntity.isAtivo());
 
         return cliente;
     }

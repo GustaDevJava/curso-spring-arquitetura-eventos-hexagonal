@@ -10,4 +10,5 @@ public class ProdutoResponse {
     private Long codigo;
     private String nome;
     private BigDecimal valorUnitario;
+    private boolean ativo;
 }

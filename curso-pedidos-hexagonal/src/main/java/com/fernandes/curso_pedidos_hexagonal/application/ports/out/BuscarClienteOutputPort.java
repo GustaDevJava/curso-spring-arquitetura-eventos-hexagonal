@@ -1,6 +1,8 @@
 package com.fernandes.curso_pedidos_hexagonal.application.ports.out;
 
+import com.fernandes.curso_pedidos_hexagonal.application.core.domain.Cliente;
+
 public interface BuscarClienteOutputPort {
 
-    void obterDadosCliente(Long codigoCliente);
+    Cliente obterDadosCliente(Long codigoCliente);
 }

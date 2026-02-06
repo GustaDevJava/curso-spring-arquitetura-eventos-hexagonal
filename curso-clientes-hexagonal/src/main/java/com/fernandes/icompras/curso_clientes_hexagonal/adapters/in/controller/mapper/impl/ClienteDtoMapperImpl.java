@@ -33,6 +33,7 @@ public class ClienteDtoMapperImpl implements ClienteDtoMapper {
         clienteResponseDto.setBairro(cliente.getBairro());
         clienteResponseDto.setEmail(cliente.getEmail());
         clienteResponseDto.setTelefone(cliente.getTelefone());
+        clienteResponseDto.setAtivo(cliente.isAtivo());
         return clienteResponseDto;
     }
 }

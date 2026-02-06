@@ -24,6 +24,8 @@ public class Pedido {
 
     private String codigoRastreio;
 
+    private String urlNotaFiscal;
+
     private DadosPagamento dadosPagamento;
 
     private List<ItemPedido> itens;
@@ -32,7 +34,7 @@ public class Pedido {
 
     public Pedido(){}
 
-    public Pedido(Long codigo, Long codigoCliente, LocalDateTime dataPedido, BigDecimal total, String chavePagamento, String observacoes, StatusPedido status, List<ItemPedido> itens, DadosPagamento dadosPagamento, String codigoRastreio, Cliente dadosCliente) {
+    public Pedido(Long codigo, Long codigoCliente, LocalDateTime dataPedido, BigDecimal total, String chavePagamento, String observacoes, StatusPedido status, List<ItemPedido> itens, DadosPagamento dadosPagamento, String codigoRastreio, Cliente dadosCliente, String urlNotaFiscal) {
         this.codigo = codigo;
         this.codigoCliente = codigoCliente;
         this.dataPedido = dataPedido;
@@ -44,6 +46,7 @@ public class Pedido {
         this.dadosPagamento = dadosPagamento;
         this.codigoRastreio = codigoRastreio;
         this.dadosCliente = dadosCliente;
+        this.urlNotaFiscal = urlNotaFiscal;
     }
 
     public Long getCodigo() {
@@ -132,5 +135,13 @@ public class Pedido {
 
     public void setDadosCliente(Cliente dadosCliente) {
         this.dadosCliente = dadosCliente;
+    }
+
+    public String getUrlNotaFiscal() {
+        return urlNotaFiscal;
+    }
+
+    public void setUrlNotaFiscal(String urlNotaFiscal) {
+        this.urlNotaFiscal = urlNotaFiscal;
     }
 }

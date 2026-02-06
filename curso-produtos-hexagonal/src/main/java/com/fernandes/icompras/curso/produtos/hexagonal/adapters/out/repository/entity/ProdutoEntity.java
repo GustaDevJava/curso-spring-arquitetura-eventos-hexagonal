@@ -24,4 +24,12 @@ public class ProdutoEntity {
 
     @Column(name = "valor_unitario", nullable = false, precision = 16, scale = 2)
     private BigDecimal valorUnitario;
+
+    @Column(name = "ativo")
+    private boolean ativo;
+
+    @PrePersist
+    public void prePersist(){
+        setAtivo(true);
+    }
 }

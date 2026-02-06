@@ -13,6 +13,17 @@ public class ProdutoEntityMapperImpl implements ProdutoEntityMapper {
         ProdutoEntity produtoEntity = new ProdutoEntity();
         produtoEntity.setNome(produto.getNome());
         produtoEntity.setValorUnitario(produto.getValorUnitario());
+        produtoEntity.setAtivo(produto.isAtivo());
+        return produtoEntity;
+    }
+
+    @Override
+    public ProdutoEntity toProdutoEntityUp(Produto produto) {
+        ProdutoEntity produtoEntity = new ProdutoEntity();
+        produtoEntity.setCodigo(produto.getCodigo());
+        produtoEntity.setNome(produto.getNome());
+        produtoEntity.setValorUnitario(produto.getValorUnitario());
+        produtoEntity.setAtivo(produto.isAtivo());
         return produtoEntity;
     }
 
@@ -22,6 +33,7 @@ public class ProdutoEntityMapperImpl implements ProdutoEntityMapper {
         produto.setCodigo(produtoEntity.getCodigo());
         produto.setNome(produtoEntity.getNome());
         produto.setValorUnitario(produtoEntity.getValorUnitario());
+        produto.setAtivo(produtoEntity.isAtivo());
         return produto;
     }
 }

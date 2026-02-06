@@ -19,7 +19,7 @@ public class SalvarProdutoAdapter implements SalvarProdutoOutputPort {
     @Override
     public Produto salvar(Produto produto) {
         var produtoEntity = mapper.toProdutoEntity(produto);
-        repository.save(produtoEntity);
+        produtoEntity = repository.save(produtoEntity);
         produto = mapper.toProduto(produtoEntity);
         return produto;
     }

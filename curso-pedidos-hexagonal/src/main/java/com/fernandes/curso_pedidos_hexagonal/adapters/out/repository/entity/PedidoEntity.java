@@ -46,6 +46,9 @@ public class PedidoEntity {
     @Column(name = "codigo_rastreio")
     private String codigoRastreio;
 
+    @Column(name = "url_nf")
+    private String urlNotaFiscal;
+
     @Transient
     private DadosPagamento dadosPagamento;
 

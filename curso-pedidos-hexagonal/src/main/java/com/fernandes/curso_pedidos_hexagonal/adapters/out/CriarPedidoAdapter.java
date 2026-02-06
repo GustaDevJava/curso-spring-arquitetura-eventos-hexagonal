@@ -24,8 +24,4 @@ public class CriarPedidoAdapter implements CriarPedidoOutputPort {
         return pedidoAnalise;
     }
 
-    public void metodo(){
-//        var pedido = null;
-        //console.log(criarPedido<Pedido>(pedido));
-    }
 }

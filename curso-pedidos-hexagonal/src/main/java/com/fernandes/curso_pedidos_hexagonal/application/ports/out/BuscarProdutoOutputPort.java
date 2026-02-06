@@ -1,6 +1,8 @@
 package com.fernandes.curso_pedidos_hexagonal.application.ports.out;
 
+import com.fernandes.curso_pedidos_hexagonal.application.core.domain.Produto;
+
 public interface BuscarProdutoOutputPort {
 
-    void obterDadosProduto(Long codigoProduto);
+    Produto obterDadosProduto(Long codigoProduto);
 }

@@ -4,26 +4,29 @@ import java.math.BigDecimal;
 
 public class Produto {
 
-    private Long Codigo;
+    private Long codigo;
 
     private String nome;
 
     private BigDecimal valorUnitario;
 
+    private boolean ativo = true;
+
     public Produto(){}
 
-    public Produto(Long codigo, String nome, BigDecimal valorUnitario) {
-        Codigo = codigo;
+    public Produto(Long codigo, String nome, BigDecimal valorUnitario, boolean ativo) {
+        this.codigo = codigo;
         this.nome = nome;
         this.valorUnitario = valorUnitario;
+        this.ativo = ativo;
     }
 
     public Long getCodigo() {
-        return Codigo;
+        return codigo;
     }
 
     public void setCodigo(Long codigo) {
-        Codigo = codigo;
+        this.codigo = codigo;
     }
 
     public String getNome() {
@@ -40,5 +43,13 @@ public class Produto {
 
     public void setValorUnitario(BigDecimal valorUnitario) {
         this.valorUnitario = valorUnitario;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }

@@ -1,7 +1,10 @@
 package com.fernandes.curso_pedidos_hexagonal.application.core.usecase;
 
+import com.fernandes.curso_pedidos_hexagonal.application.core.domain.Cliente;
 import com.fernandes.curso_pedidos_hexagonal.application.core.domain.ItemPedido;
 import com.fernandes.curso_pedidos_hexagonal.application.core.domain.Pedido;
+import com.fernandes.curso_pedidos_hexagonal.application.core.domain.Produto;
+import com.fernandes.curso_pedidos_hexagonal.application.core.exception.ValidationException;
 import com.fernandes.curso_pedidos_hexagonal.application.ports.out.BuscarClienteOutputPort;
 import com.fernandes.curso_pedidos_hexagonal.application.ports.out.BuscarProdutoOutputPort;
 
@@ -22,10 +25,19 @@ public class ValidarPedidoUseCase {
     }
 
     private void validarCliente(Long codigoCliente){
-        buscarClienteOutputPort.obterDadosCliente(codigoCliente);
+
+        Cliente cliente = buscarClienteOutputPort.obterDadosCliente(codigoCliente);
+
+        if(!cliente.isAtivo()){
+            throw new ValidationException("codigoCliente","Cliente Inativo.");
+        }
     }
 
     private void validarItem(ItemPedido item){
-        buscarProdutoOutputPort.obterDadosProduto(item.getCodigoProduto());
+        Produto produto = buscarProdutoOutputPort.obterDadosProduto(item.getCodigoProduto());
+
+        if (!produto.isAtivo()){
+            throw new ValidationException("codigoProduto", "Produto Inativo.");
+        }
     }
 }

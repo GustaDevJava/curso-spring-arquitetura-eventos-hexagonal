@@ -23,6 +23,7 @@ public class ProdutoMapperImpl implements ProdutoMapper {
         produtoResponse.setCodigo(produto.getCodigo());
         produtoResponse.setNome(produto.getNome());
         produtoResponse.setValorUnitario(produto.getValorUnitario());
+        produtoResponse.setAtivo(produto.isAtivo());
         return produtoResponse;
     }
 }

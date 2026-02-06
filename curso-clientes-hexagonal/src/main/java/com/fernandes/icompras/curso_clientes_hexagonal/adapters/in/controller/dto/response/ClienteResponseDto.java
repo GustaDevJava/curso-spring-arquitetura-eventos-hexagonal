@@ -13,4 +13,5 @@ public class ClienteResponseDto {
     private String bairro;
     private String email;
     private String telefone;
+    private boolean ativo;
 }

@@ -10,10 +10,11 @@ public class Cliente {
     private String bairro;
     private String email;
     private String telefone;
+    private boolean ativo;
 
     public Cliente(){}
 
-    public Cliente(Long codigo, String nome, String logradouro, String cpf, String numero, String email, String bairro, String telefone) {
+    public Cliente(Long codigo, String nome, String logradouro, String cpf, String numero, String email, String bairro, String telefone, boolean ativo) {
         this.codigo = codigo;
         this.nome = nome;
         this.logradouro = logradouro;
@@ -22,6 +23,7 @@ public class Cliente {
         this.email = email;
         this.bairro = bairro;
         this.telefone = telefone;
+        this.ativo = ativo;
     }
 
     public Long getCodigo() {
@@ -86,5 +88,13 @@ public class Cliente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }

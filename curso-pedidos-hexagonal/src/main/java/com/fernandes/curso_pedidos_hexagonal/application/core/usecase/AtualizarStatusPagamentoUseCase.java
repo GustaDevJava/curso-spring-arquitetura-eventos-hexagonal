@@ -3,8 +3,10 @@ package com.fernandes.curso_pedidos_hexagonal.application.core.usecase;
 import com.fernandes.curso_pedidos_hexagonal.application.core.domain.Pedido;
 import com.fernandes.curso_pedidos_hexagonal.application.core.domain.enums.StatusPedido;
 import com.fernandes.curso_pedidos_hexagonal.application.ports.in.AtualizarStatusPagamentoInputPort;
+import com.fernandes.curso_pedidos_hexagonal.application.ports.in.CarregarPedidoInputPort;
 import com.fernandes.curso_pedidos_hexagonal.application.ports.out.AtualizarPedidoOutputPort;
 import com.fernandes.curso_pedidos_hexagonal.application.ports.out.BuscarPedidoPorCodigoEChaveOutputPort;
+import com.fernandes.curso_pedidos_hexagonal.application.ports.out.PublicarPedidoOutputPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,15 +14,21 @@ public class AtualizarStatusPagamentoUseCase implements AtualizarStatusPagamento
 
     private final BuscarPedidoPorCodigoEChaveOutputPort buscarPedidoPorCodigoEChaveOutputPort;
     private final AtualizarPedidoOutputPort atualizarPedidoOutputPort;
+    private final PublicarPedidoOutputPort publicarPedidoOutputPort;
+    private final CarregarPedidoInputPort carregarPedidoInputPort;
+
 
     private static final Logger log =
             LoggerFactory.getLogger(AtualizarStatusPagamentoUseCase.class);
 
-    public AtualizarStatusPagamentoUseCase(BuscarPedidoPorCodigoEChaveOutputPort buscarPedidoPorCodigoEChaveOutputPort, AtualizarPedidoOutputPort atualizarPedidoOutputPort) {
+    public AtualizarStatusPagamentoUseCase(BuscarPedidoPorCodigoEChaveOutputPort buscarPedidoPorCodigoEChaveOutputPort, AtualizarPedidoOutputPort atualizarPedidoOutputPort, PublicarPedidoOutputPort publicarPedidoOutputPort, CarregarPedidoInputPort carregarPedidoInputPort) {
         this.buscarPedidoPorCodigoEChaveOutputPort = buscarPedidoPorCodigoEChaveOutputPort;
         this.atualizarPedidoOutputPort = atualizarPedidoOutputPort;
+        this.publicarPedidoOutputPort = publicarPedidoOutputPort;
+        this.carregarPedidoInputPort = carregarPedidoInputPort;
     }
 
+    @Override
     public void atualizarStatusPagamento(
             Long codigoPedido, String chavePagamento, boolean sucesso, String observacoes){
        var pedidoOptional = buscarPedidoPorCodigoEChaveOutputPort.buscarPorCodigoEChavePagamento
@@ -36,7 +44,7 @@ public class AtualizarStatusPagamentoUseCase implements AtualizarStatusPagamento
         Pedido pedido = pedidoOptional.get();
 
         if(sucesso){
-            pedido.setStatus(StatusPedido.PAGO);
+            pedido = prepararEPublicarPedidoPago(pedido);
         }else {
             pedido.setStatus(StatusPedido.ERRO_PAGAMENTO);
             pedido.setObservacoes(observacoes);
@@ -44,4 +52,13 @@ public class AtualizarStatusPagamentoUseCase implements AtualizarStatusPagamento
 
         atualizarPedidoOutputPort.atualizarPedido(pedido);
     }
+
+    private Pedido prepararEPublicarPedidoPago(Pedido pedido) {
+        pedido = carregarPedidoInputPort.carregarDadosCompletosPedido(pedido.getCodigo());
+        pedido.setStatus(StatusPedido.PAGO);
+        publicarPedidoOutputPort.publicar(pedido);
+        return pedido;
+    }
+
+
 }

@@ -1,16 +1,17 @@
 package com.fernandes.curso_pedidos_hexagonal.adapters.in.controller;
 
 import com.fernandes.curso_pedidos_hexagonal.adapters.in.controller.dto.AdicaoNovoPagamentoDTO;
+import com.fernandes.curso_pedidos_hexagonal.adapters.in.controller.dto.DetalhePedidoDTO;
 import com.fernandes.curso_pedidos_hexagonal.adapters.in.controller.dto.NovoPedidoDTO;
+import com.fernandes.curso_pedidos_hexagonal.adapters.in.controller.mappers.DetalhePedidoDTOMapper;
 import com.fernandes.curso_pedidos_hexagonal.adapters.in.controller.mappers.PedidoMapper;
+import com.fernandes.curso_pedidos_hexagonal.adapters.out.publisher.representation.DetalhePedidoRepresentation;
 import com.fernandes.curso_pedidos_hexagonal.application.ports.in.AdicionarNovoPagamentoInuptPort;
+import com.fernandes.curso_pedidos_hexagonal.application.ports.in.CarregarPedidoInputPort;
 import com.fernandes.curso_pedidos_hexagonal.application.ports.in.CriarPedidoInputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -21,7 +22,11 @@ public class PedidoController {
 
     private final AdicionarNovoPagamentoInuptPort adicionarNovoPagamentoInuptPort;
 
+    private final CarregarPedidoInputPort carregarPedidoInputPort;
+
     private final PedidoMapper mapper;
+
+    private final DetalhePedidoDTOMapper detalhePedidoDTOMapper;
 
     @PostMapping
     public ResponseEntity<Object> criar(@RequestBody NovoPedidoDTO novoPedidoDTO){
@@ -40,6 +45,14 @@ public class PedidoController {
         );
         return ResponseEntity.noContent().build();
 
+    }
+
+    @GetMapping("{codigo}")
+    public ResponseEntity<DetalhePedidoDTO> obterDetalhesPedido(
+            @PathVariable("codigo")Long codigo){
+        var pedido = carregarPedidoInputPort.carregarDadosCompletosPedido(codigo);
+        var detalhePedidoDto = detalhePedidoDTOMapper.toDetalhePedidoDTO(pedido);
+        return ResponseEntity.ok(detalhePedidoDto);
     }
 
 

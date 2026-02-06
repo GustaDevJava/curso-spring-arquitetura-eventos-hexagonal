@@ -7,5 +7,7 @@ public interface ProdutoEntityMapper {
 
     ProdutoEntity toProdutoEntity(Produto produto);
 
+    ProdutoEntity toProdutoEntityUp(Produto produto);
+
     Produto toProduto(ProdutoEntity produtoEntity);
 }

@@ -7,6 +7,7 @@ import com.fernandes.curso_pedidos_hexagonal.application.ports.out.BuscarPedidoP
 import com.fernandes.curso_pedidos_hexagonal.application.ports.out.BuscarPedidoPorCodigoOutputPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -24,6 +25,7 @@ public class BuscarPedidoAdapter implements BuscarPedidoPorCodigoEChaveOutputPor
     }
 
     @Override
+    @Transactional
     public Optional<Pedido> buscarPorCodigo(Long codigo) {
         var pedidoEntity = repository.findById(codigo);
         return pedidoEntity.map(mapper::toPedido);
